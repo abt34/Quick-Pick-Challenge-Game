@@ -4,51 +4,76 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quick Pick Challenge Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="./style/style.css" />
   </head>
   <body>
     <section class="first-section">
       <div class="head">
-        <div class="reset"><button class="reset-btn">RESET</button></div>
-        <div class="time-counter timeleft">TIME</div>
-      </div>
-      <div class="heading-text message">Start Playing</div>
-
-      <div class="container">
-        <div class="img image1">
-          <img src="img/img1.jpg" class="image01" alt="" />
-          <div class="guess-number guess1"></div>
-        </div>
-
-        <div class="img image2">
-          <img src="img/img2.jpg" class="image02" alt="" />
-          <div class="guess-number guess2"></div>
-        </div>
-
-        <div class="img image3">
-          <img src="img/img3.jpg" class="image03" alt="" />
-          <div class="guess-number guess3"></div>
+        <div class="flex-head">
+          <div class="reset"><button class="reset-btn">RESET</button></div>
+          <div class="time-counter timer">00:00</div>
         </div>
       </div>
 
-
-      <div class="input-number">
-        <input class="input input1" type="text" placeholder=""/>
-        <input class="input input2" type="text" placeholder="" />
-        <input class="input input3" type="text" placeholder="" />
-      </div>
-      <div class="cin"> 
-        <button class="btn submit  reset-btn">submit</button>
+      <div class="heading-text">
+        <div class="">Start playing ...</div>
       </div>
 
-      <div class="play">
-        <button class="btn play-btn">PLAY</button>
-      </div>
+      <section class="second-section">
+        <div class="containers">
+          <div class="container">
+            <div class="image">
+              <img src="./images/cat.jpg" alt="" />
+              <div class="guess-number guess1">
+                <div class="num1"></div>
+              </div>
 
-      <div class="score">
-        <p class="score-name">SCORE</p>
-        <p class="score-value"> </p>
-      </div>
+              <img class="display verified verifiy v1" src="" alt="" />
+            </div>
+
+            <div class="image">
+              <img src="./images/cat2.jpg" alt="" />
+              <div class="guess-number guess2"><div class="num2"></div></div>
+              <img class="display verified verifiy v2" src="" alt="" />
+            </div>
+
+            <div class="image">
+              <img src="./images/dog.jpg" alt="" />
+              <div class="guess-number guess3"><div class="num3"></div></div>
+              <img class="display verified verifiy v3" src="" alt="" />
+            </div>
+          </div>
+
+          <div class="error-msg">
+            <p><i>error</i></p>
+          </div>
+
+          <div class="input-display">
+            <input type="text" class="input1" />
+            <input type="text" class="input2" />
+            <input type="text" class="input3" />
+          </div>
+
+          <div class="play">
+            <button class="play-btn">PLAY</button>
+          </div>
+
+          <div class="submit">
+            <button class="submit-btn">SUBMIT</button>
+          </div>
+
+          <div class="score">
+            <p class="score-display">SCORE <span class="score-value"></span></p>
+          </div>
+        </div>
+      </section>
     </section>
     <script src="./js/index.js"></script>
   </body>

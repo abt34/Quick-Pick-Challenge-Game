@@ -1,96 +1,177 @@
-const play = document.querySelector(".play-btn");
-const guessnumbers = document.querySelectorAll(".guess-number");
-const guessnum1 = document.querySelector(".guess1");
-const guessnum2 = document.querySelector(".guess2");
-const guessnum3 = document.querySelector(".guess3");
-const message = document.querySelector(".message");
-const timesee = document.querySelector(".timeleft");
-const input1 = document.querySelector(".input1");
-const input2 = document.querySelector(".input2");
-const input3 = document.querySelector(".input3");
-const submit = document.querySelector(".submit");
-const image1 = document.querySelector(".image01");
-const image2 = document.querySelector(".image02");
-const image3 = document.querySelector(".image03");
-const scorevalue = document.querySelector(".score-value");
-const scorename = document.querySelector(".score-name");
-const reset = document.querySelector(".reset-btn");
-scorevalue.classList.add("hidden");
-scorename.classList.add("hidden");
-input1.classList.add("hidden");
-input2.classList.add("hidden");
-input3.classList.add("hidden");
-submit.classList.add("hidden");
+document
+  .querySelectorAll(".score, .error-msg,  .guess-number, .submit-btn ")
+  .forEach((el) => {
+    el.classList.add("display");
+  });
+document.querySelectorAll(" .input-display ").forEach((el) => {
+  el.classList.add("display2");
+});
+
+let secretNumber1 = Math.trunc(Math.random() * 200) + 1;
+let secretNumber2 = Math.trunc(Math.random() * 200) + 1;
+let secretNumber3 = Math.trunc(Math.random() * 200) + 1;
 let score = 0;
-// state variable for the game to stop working the play button
-let playing = true;
-// abc for imgnumber  and xyz for input
-let a, b, c, x, y, z;
-// function for play btn
-const playbtn = function () {
-  if (playing) {
-    a = guessnum1.textContent = Math.trunc(Math.random() * 1000) + 1;
-    b = guessnum2.textContent = Math.trunc(Math.random() * 1000) + 1;
-    c = guessnum3.textContent = Math.trunc(Math.random() * 1000) + 1;
-    console.log(a, b, c);
-    playing = false; // playing btn is not working
-    //////////////      working on the time interval
-    let timeLeft = 1; //counting began from 3
-    const timer = setInterval(() => {
-      timesee.textContent = timeLeft;
-      timeLeft--;
-      if (timeLeft < 0) {
-        clearInterval(timer);
-        message.textContent = " Fill Up The Numbers ?";
-        guessnum1.classList.add("hidden");
-        guessnum2.classList.add("hidden");
-        guessnum3.classList.add("hidden");
-        image1.src = "img/hide.jpg";
-        image2.src = "img/hide.jpg";
-        image3.src = "img/hide.jpg";
-        input1.classList.remove("hidden");
-        input2.classList.remove("hidden");
-        input3.classList.remove("hidden");
-        submit.classList.remove("hidden");
-      }
-    }, 1000);
-  }
-  playing = false; // playing btn is not working
+let myVar2;
+
+const displayMessage = function (message) {
+  document.querySelector(".error-msg").textContent = message;
+  document.querySelector(".error-msg").classList.remove("display");
 };
-/// play button functionality
-play.addEventListener("click", function () {
-  playbtn();
-});
-// submit btn conditions
-submit.addEventListener("click", function () {
-  x = Number(document.querySelector(".input1").value);
-  y = Number(document.querySelector(".input2").value);
-  z = Number(document.querySelector(".input3").value);
-  if (x === a) {
-    score++;
-    x === a ? (image1.src = "img/img1.jpg") : (image1.src = "img/x.jpg");
-  } else if (y === b) {
-    score++;
-    y === b ? (image2.src = "img/img2.jpg") : (image2.src = "img/x.jpg");
-  } else if (z === c) {
-    score++;
-    z === c ? (image3.src = "img/img2.jpg") : (image3.src = "img/x.jpg");
+
+let seconds = 0;
+let minutes = 0;
+
+function updateCounter() {
+  seconds++;
+  if (seconds === 60) {
+    seconds = 0;
+    minutes++;
+    if (minutes === 60) {
+      minutes = 0;
+    }
   }
-  scorevalue.textContent = score;
-  scorevalue.classList.remove("hidden");
-  scorename.classList.remove("hidden");
+
+  const formattedTime = `${String(minutes).padStart(2, "0")}:${String(
+    seconds
+  ).padStart(2, "0")}`;
+  document.querySelector(".timer").textContent = formattedTime;
+}
+
+/* 
+
+
+
+
+
+
+*/
+
+document.querySelector(".play-btn").addEventListener("click", function () {
+  document.querySelector(".num1").textContent = secretNumber1;
+  document.querySelector(".num2").textContent = secretNumber2;
+  document.querySelector(".num3").textContent = secretNumber3;
+
+  myVar2 = setInterval(updateCounter, 1000); // Update every second
+  document.querySelectorAll(".submit-btn").forEach((el) => {
+    el.classList.remove("display");
+  });
+
+  document.querySelectorAll(" .input-display ").forEach((el) => {
+    el.classList.remove("display2");
+  });
+  document.querySelectorAll(" .input-display ").forEach((el) => {
+    el.classList.add("input-number");
+  });
+
+  const popup = document.querySelectorAll(".guess-number").forEach((el) => {
+    setTimeout(() => {
+      el.classList.remove("display");
+    }, 0);
+    setTimeout(() => {
+      el.classList.add("display");
+    }, 800);
+  });
+
+  document.querySelectorAll(".play").forEach((el) => {
+    el.classList.add("display");
+  });
 });
-///////////////////////// resr=et button functionality
-reset.addEventListener("click", function () {
-  image1.src = "img/img1.jpg";
-  image2.src = "img/img2.jpg";
-  image3.src = "img/img3.jpg";
-  message.textContent = "Start Playing";
-  scorevalue.classList.add("hidden");
-  scorename.classList.add("hidden");
-  input1.classList.add("hidden");
-  input2.classList.add("hidden");
-  input3.classList.add("hidden");
-  submit.classList.add("hidden");
-  playing = true;
+/*
+
+
+
+
+*/
+document.querySelector(".submit-btn").addEventListener("click", function () {
+  const guess1 = Number(document.querySelector(".input1").value);
+  const guess2 = Number(document.querySelector(".input2").value);
+  const guess3 = Number(document.querySelector(".input3").value);
+
+  if (guess1 === secretNumber1) {
+    score++;
+    document.querySelector(".v1").classList.remove("display");
+    document.querySelector(".v1").src = "./images/verified.png";
+  } else {
+    document.querySelector(".v1").classList.remove("display");
+    document.querySelector(".v1").src = "./images/wrong.png";
+  }
+  if (guess2 === secretNumber2) {
+    score++;
+    document.querySelector(".v2").classList.remove("display");
+    document.querySelector(".v2").src = "./images/verified.png";
+  } else {
+    document.querySelector(".v2").classList.remove("display");
+    document.querySelector(".v2").src = "./images/wrong.png";
+  }
+  if (guess3 === secretNumber3) {
+    score++;
+    document.querySelector(".v3").classList.remove("display");
+    document.querySelector(".v3").src = "./images/verified.png";
+  } else {
+    document.querySelector(".v3").classList.remove("display");
+    document.querySelector(".v3").src = "./images/wrong.png";
+  }
+
+  document.querySelectorAll(".submit-btn, .guess-number").forEach((el) => {
+    el.classList.add("display");
+  });
+  document.querySelectorAll(".score , .guess-number").forEach((el) => {
+    el.classList.remove("display");
+  });
+
+  document.querySelector(".score-value").textContent = score;
+
+  clearInterval(myVar2);
+  seconds = 0;
+  minutes = 0;
+});
+
+/* 
+
+
+
+
+
+
+
+
+
+
+// */
+
+document.querySelector(".reset-btn").addEventListener("click", function () {
+  score = 0;
+  // seconds = 0;
+  // minutes = 0;
+  secretNumber1 = Math.trunc(Math.random() * 200) + 1;
+  secretNumber2 = Math.trunc(Math.random() * 200) + 1;
+  secretNumber3 = Math.trunc(Math.random() * 200) + 1;
+
+  document.querySelectorAll(".input1,.input2,.input3").forEach((el) => {
+    el.value = "";
+  });
+  document.querySelector(".timer").textContent = "00:00";
+  document.querySelectorAll(".input-display ").forEach((el) => {
+    el.classList.remove("input-number");
+  });
+  document.querySelectorAll(" .input-display ").forEach((el) => {
+    el.classList.add("display2");
+  });
+
+  document
+    .querySelectorAll(
+      ".score, .error-msg,  .verified, .guess-number, .submit-btn "
+    )
+    .forEach((el) => {
+      el.classList.add("display");
+    });
+
+  document.querySelectorAll(".verified ").forEach((el) => {
+    el.src.textContent = "";
+  });
+
+  // document.querySelector(".verified").src.textContent = "";
+  document.querySelectorAll(".play ").forEach((el) => {
+    el.classList.remove("display");
+  });
 });
